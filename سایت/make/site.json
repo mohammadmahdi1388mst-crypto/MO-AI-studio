@@ -1,0 +1,10 @@
+{
+  "description": "Create and manage AI-generated content with a Persian RTL SaaS platform offering educational courses and tools for businesses to enhance growth.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
