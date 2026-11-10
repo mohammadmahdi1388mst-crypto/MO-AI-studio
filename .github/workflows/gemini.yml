@@ -1,0 +1,40 @@
+name: Gemini AI Assistant
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  analyze-code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: دریافت کدهای پروژه
+        uses: actions/checkout@v4
+
+      - name: آماده‌سازی پایتون
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: نصب کتابخانه جمینای
+        run: |
+          pip install google-genai
+
+      - name: بررسی پروژه با جمینای
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python -c "
+          from google import genai
+          import os
+
+          client = genai.Client(api_key=os.environ['GEMINI_API_KEY'])
+          response = client.models.generate_content(
+              model='gemini-2.5-flash',
+              contents='این ریپازیتوری آپدیت شد. یک گزارش ۲ خطی از ساختار کدها و نکات مهم برای توسعه‌دهنده به زبان فارسی بنویس.'
+          )
+          print('--- پاسخ و تحلیل هوش مصنوعی جمینای ---')
+          print(response.text)
+          "
